@@ -35,6 +35,13 @@ status
 	string	The status of the newly created invoice
 
 */
+
+type InvoiceResponse struct {
+	Result    string
+	InvoiceID int
+	Status    string
+}
+
 func (s *BillingService) CreateInvoice(userID int, invoice CreateInvoiceRequest) (int, *Response, error) {
 	//a := new(BillingItem)
 
@@ -74,7 +81,7 @@ func (s *BillingService) CreateInvoice(userID int, invoice CreateInvoiceRequest)
 		invoiceParams[k] = v
 	}
 
-	resp, err := do(s.client, Params{parms: invoiceParams, u: "CreateInvoice"}, nil)
+	resp, err := apiRequest(s.client, Params{parms: invoiceParams, u: "CreateInvoice"}, nil)
 	if err != nil {
 		return 0, resp, err
 	}
